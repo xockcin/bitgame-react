@@ -1,148 +1,9 @@
 import React, { Component } from 'react'
-import { Button, ButtonGroup } from 'reactstrap'
-
-const Dec = (props) => {
-  return (
-    <div className="bg-info text-white border rounded m-4">
-      <h1 className="p-1 m-0">
-        {props.number}
-      </h1>
-    </div>
-  );
-}
-
-const Hex = (props) => {
-  return (
-    <div className="bg-info text-white border rounded m-4">
-      <h1 className="p-1 m-0">
-        {props.hex}
-      </h1>
-    </div>
-  );
-}
-
-const Ascii = (props) => {
-  return (
-    <div className="bg-info text-white border rounded m-4">
-      <h1 className="p-1 m-0">
-        {props.ascii}
-      </h1>
-    </div>
-  );
-}
-
-const GameSpace = (props) => {
-  return (
-    <div className="d-flex justify-content-around">
-      <Dec number={props.number} />
-      <Hex hex={props.hex} />
-      <Ascii ascii={props.ascii} />
-    </div>
-  );
-}
+import GameSpace from './components/GameSpace'
+import GameBoard from './components/GameBoard'
+import BandcampPlayer from 'react-bandcamp'
 
 
-const Byte = (props) => {
-  const buttons = props.byte.slice(0).reverse().map(bit => {
-    return (
-      <Button 
-        className="bit btn m-2 border border-dark rounded"
-        color={bit ? "dark" : "light"}>
-        {+bit}
-      </Button>
-    );
-  })
-
-  return (
-    <div className="d-flex bg-info rounded-pill justify-content-around">
-      <ButtonGroup>{buttons}</ButtonGroup>
-    </div>
-  );
-};
-
-<div className="d-flex bg-info rounded-pill justify-content-around">
-  <h1>hello</h1>
-</div>;
-
-function Keypad(props) {
-  const values = [
-    {
-      name: "inc",
-      token: "+",
-    },
-    {
-      name: "lsh",
-      token: "<",
-    },
-    {
-      func: "asdfasdf",
-      token: "~",
-    },
-    {
-      name: "hello",
-      token: ">",
-    },
-    {
-      name: "dec",
-      token: "-",
-    },
-  ]
-
-  const buttons = values.map((value) => {
-    return (
-      <Button 
-        onClick={props.complement}
-        className="btn m-2 mx-3 border btn-danger rounded btn-lg">
-        {value.token}
-      </Button>
-    );
-  });
-
-  return (
-    <div className="d-flex bg-success rounded-pill justify-content-around">
-      <ButtonGroup>
-        <Button
-          onClick={props.shiftLeft}
-          className="btn m-2 mx-3 border btn-danger rounded btn-lg"
-        >
-          &lt;
-        </Button>
-        <Button
-          onClick={props.complement}
-          className="btn m-2 mx-3 border btn-danger rounded btn-lg"
-        >
-          ~
-        </Button>
-        <Button
-          onClick={props.shiftRight}
-          className="btn m-2 mx-3 border btn-danger rounded btn-lg"
-        >
-          &gt;
-        </Button>
-      </ButtonGroup>
-    </div>
-  );
-}
-
-class GameBoard extends Component {
-  constructor(props) {
-    super(props);
-  }
-
-  render() {
-    return (
-      <div class="container bg-secondary w-75 border rounded p-3 mt-4">
-        <Byte byte={this.props.byte} />
-        <hr />
-        <Keypad
-          complement={this.props.complement}
-          shiftLeft={this.props.shiftLeft}
-          shiftRight={this.props.shiftRight}
-        />
-      </div>
-    );
-  }
-}
 
 class App extends Component {
   constructor(props) {
@@ -189,20 +50,62 @@ class App extends Component {
     return num
   }
 
-  
+  getAscii(num) {
+    const special = [
+      "NUL",
+      "SOH",
+      "STX",
+      "ETX",
+      "EOT",
+      "ENQ",
+      "ACK",
+      "BEL",
+      "BS",
+      "TAB",
+      "LF",
+      "VT",
+      "FF",
+      "CR",
+      "SO",
+      "SI",
+      "DLE",
+      "DC1",
+      "DC2",
+      "DC3",
+      "DC4",
+      "NAK",
+      "SYN",
+      "ETB",
+      "CAN",
+      "EM",
+      "SUB",
+      "ESC",
+      "FS",
+      "GS",
+      "RS",
+      "US",
+      "SP"
+    ]
+
+    if (num < 33) {
+      return special[num]
+    } 
+    else if (num === 127) {
+      return "DEL"
+    }
+    else {
+      return String.fromCharCode(num)
+    }
+  }
 
   render() {
     const number = this.getNumber()
     const hex = number.toString(16)
-    const ascii = String.fromCharCode(hex)
+    const ascii = this.getAscii(number)
     return (
       <div className="container">
-        <div className="bg-secondary border container-flex d-flex flex-row justify-content-around rounded-pill m-2">
-          <GameSpace 
-            number={number}
-            hex={hex}
-            ascii={ascii}
-          />
+        <div className=" border container-flex d-flex flex-row justify-content-around rounded-pill m-2">
+          <GameSpace number={number} hex={hex} ascii={ascii} />
         </div>
         <GameBoard
           byte={this.state.byte}
@@ -210,6 +113,16 @@ class App extends Component {
           shiftLeft={this.shiftLeft}
           shiftRight={this.shiftRight}
         />
+        <hr />
+        <div className="container-flex d-flex justify-content-center p-3">
+          <BandcampPlayer
+            className="rounded-pill"
+            album="3114440086"
+            bgcol="blue"
+            size="medium"
+            width="50%"
+          />
+        </div>
       </div>
     );
   }
