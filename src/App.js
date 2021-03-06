@@ -15,6 +15,8 @@ class App extends Component {
     this.complement = this.complement.bind(this);
     this.shiftLeft = this.shiftLeft.bind(this);
     this.shiftRight = this.shiftRight.bind(this);
+    this.increment = this.increment.bind(this)
+    this.decrement = this.decrement.bind(this);
   }
 
   complement() {
@@ -41,13 +43,43 @@ class App extends Component {
     });
   }
 
+  fromNumber(number) {
+    const newByte = [];
+    for (let i = 0; i < 8; i++) {
+      newByte[i] = !!(number & (1 << i));
+    }
+    this.setState((currentState) => {
+      return {
+        byte: newByte,
+      };
+    });
+  }
+
+  increment() {
+    const number = this.getNumber();
+    this.setState((currentState) => {
+      return {
+        byte: this.fromNumber(number + 1),
+      };
+    });
+  }
+
+  decrement() {
+    const number = this.getNumber();
+    this.setState((currentState) => {
+      return {
+        byte: this.fromNumber(number - 1),
+      };
+    });
+  }
+
   getNumber() {
     const byte = this.state.byte;
-    let num = 0
-    for (let i= 0; i<8; i++) {
-      num += byte[i]<<i
+    let num = 0;
+    for (let i = 0; i < 8; i++) {
+      num += byte[i] << i;
     }
-    return num
+    return num;
   }
 
   getAscii(num) {
@@ -84,27 +116,25 @@ class App extends Component {
       "GS",
       "RS",
       "US",
-      "SP"
-    ]
+      "SP",
+    ];
 
     if (num < 33) {
-      return special[num]
-    } 
-    else if (num === 127) {
-      return "DEL"
-    }
-    else {
-      return String.fromCharCode(num)
+      return special[num];
+    } else if (num === 127) {
+      return "DEL";
+    } else {
+      return String.fromCharCode(num);
     }
   }
 
   render() {
-    const number = this.getNumber()
-    const hex = number.toString(16)
-    const ascii = this.getAscii(number)
+    const number = this.getNumber();
+    const hex = number.toString(16);
+    const ascii = this.getAscii(number);
     return (
       <div className="container">
-        <div className=" border container-flex d-flex flex-row justify-content-around rounded-pill m-2">
+        <div className="container-flex d-flex flex-row justify-content-around rounded-pill m-2">
           <GameSpace number={number} hex={hex} ascii={ascii} />
         </div>
         <GameBoard
@@ -112,6 +142,8 @@ class App extends Component {
           complement={this.complement}
           shiftLeft={this.shiftLeft}
           shiftRight={this.shiftRight}
+          increment={this.increment}
+          decrement={this.decrement}
         />
         <hr />
         <div className="container-flex d-flex justify-content-center p-3">

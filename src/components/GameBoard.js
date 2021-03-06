@@ -28,6 +28,12 @@ const Keypad = (props) => {
     <div className="d-flex bg-success rounded-pill justify-content-around">
       <ButtonGroup>
         <Button
+          onClick={props.increment}
+          className="btn m-2 mx-5 border btn-danger rounded btn-lg"
+        >
+          +
+        </Button>
+        <Button
           onClick={props.shiftLeft}
           className="btn m-2 mx-5 border btn-danger rounded btn-lg"
         >
@@ -45,6 +51,12 @@ const Keypad = (props) => {
         >
           &gt;
         </Button>
+        <Button
+          onClick={props.decrement}
+          className="btn m-2 mx-5 border btn-danger rounded btn-lg"
+        >
+          -
+        </Button>
       </ButtonGroup>
     </div>
   );
@@ -59,6 +71,8 @@ const GameBoard = (props) => {
         complement={props.complement}
         shiftLeft={props.shiftLeft}
         shiftRight={props.shiftRight}
+        increment={props.increment}
+        decrement={props.decrement}
       />
     </div>
   );
