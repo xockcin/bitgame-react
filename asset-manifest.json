@@ -1,0 +1,22 @@
+{
+  "files": {
+    "main.css": "/bitgame-react/static/css/main.c90d7a6e.chunk.css",
+    "main.js": "/bitgame-react/static/js/main.a62261c0.chunk.js",
+    "main.js.map": "/bitgame-react/static/js/main.a62261c0.chunk.js.map",
+    "runtime-main.js": "/bitgame-react/static/js/runtime-main.7b897d7e.js",
+    "runtime-main.js.map": "/bitgame-react/static/js/runtime-main.7b897d7e.js.map",
+    "static/js/2.bc106647.chunk.js": "/bitgame-react/static/js/2.bc106647.chunk.js",
+    "static/js/2.bc106647.chunk.js.map": "/bitgame-react/static/js/2.bc106647.chunk.js.map",
+    "static/js/3.9ca978b9.chunk.js": "/bitgame-react/static/js/3.9ca978b9.chunk.js",
+    "static/js/3.9ca978b9.chunk.js.map": "/bitgame-react/static/js/3.9ca978b9.chunk.js.map",
+    "index.html": "/bitgame-react/index.html",
+    "static/css/main.c90d7a6e.chunk.css.map": "/bitgame-react/static/css/main.c90d7a6e.chunk.css.map",
+    "static/js/2.bc106647.chunk.js.LICENSE.txt": "/bitgame-react/static/js/2.bc106647.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.7b897d7e.js",
+    "static/js/2.bc106647.chunk.js",
+    "static/css/main.c90d7a6e.chunk.css",
+    "static/js/main.a62261c0.chunk.js"
+  ]
+}
